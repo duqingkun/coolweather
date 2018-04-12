@@ -161,44 +161,45 @@ public class ChooseAreaFragment extends Fragment {
         HttpUtility.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-//                getActivity().runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        hideProgressDialog();
-//                        Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        hideProgressDialog();
+                        Toast.makeText(getContext(), "加载失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-//                String responseText = response.body().string();
-//                boolean result = false;
-//                if("province".equals(type)){
-//                    result = Utility.handleProvinceResponse(responseText);
-//                }
-//                else if("city".equals(type)){
-//                    result = Utility.handleCityResponse(responseText, mSelectedProvince.getId());
-//                }
-//                else if("country".equals(type)){
-//                    result = Utility.handleCountryResponse(responseText, mSelectedCity.getId());
-//                }
-//                if(result){
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            if("province".equals(type)){
-//                                queryProvinces();
-//                            }
-//                            else if("city".equals(type)){
-//
-//                            }
-//                            else if("country".equals(type)){
-//
-//                            }
-//                        }
-//                    });
-//                }
+                String responseText = response.body().string();
+                boolean result = false;
+                if("province".equals(type)){
+                    result = Utility.handleProvinceResponse(responseText);
+                }
+                else if("city".equals(type)){
+                    result = Utility.handleCityResponse(responseText, mSelectedProvince.getId());
+                }
+                else if("country".equals(type)){
+                    result = Utility.handleCountryResponse(responseText, mSelectedCity.getId());
+                }
+                if(result){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if("province".equals(type)){
+                                queryProvinces();
+                            }
+                            else if("city".equals(type)){
+                                queryCities();
+                            }
+                            else if("country".equals(type)){
+                                queryCounties();
+                            }
+                        }
+                    });
+                }
+                hideProgressDialog();
             }
         });
     }
